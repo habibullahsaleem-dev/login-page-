@@ -1,0 +1,22 @@
+trigger:
+  branches:
+    include:
+      - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  imageName: 'habibullahsaleem/login-app'  # Change if needed
+
+steps:
+- task: Docker@2
+  displayName: 'Build Docker image'
+  inputs:
+    containerRegistry: 'DockerHub'      # See Step 2
+    repository: '$(imageName)'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    tags: |
+      latest
+
